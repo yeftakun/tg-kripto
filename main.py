@@ -70,60 +70,76 @@ def affine_decrypt(text, a, b):
     return result
 
 def main():
-    import sys
+    print("=== AFFINE CIPHER SEDERHANA ===")
+    print("Kunci 'a' yang valid: 1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25")
+    print()
     
-    # Cek argumen command line
-    if len(sys.argv) != 5:
-        print("=== AFFINE CIPHER SEDERHANA ===")
-        print("Penggunaan:")
-        print("  python main.py <mode> <text> <kunci_a> <kunci_b>")
-        print()
-        print("Mode:")
-        print("  enc  - untuk enkripsi")
-        print("  dec  - untuk dekripsi")
-        print()
-        print("Kunci 'a' yang valid: 1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25")
-        print()
-        print("Contoh:")
-        print('  python main.py enc "HELLO WORLD" 5 8')
-        print('  python main.py dec "RCLLA OAPLX" 5 8')
-        return
+    # Contoh penggunaan
+    plaintext = "HELLO WORLD"
+    a = 5  # Kunci multiplicative
+    b = 8  # Kunci additive
     
-    mode = sys.argv[1].lower()
-    text = sys.argv[2]
+    print(f"Plaintext: {plaintext}")
+    print(f"Kunci a: {a}, b: {b}")
+    print()
     
-    try:
-        a = int(sys.argv[3])
-        b = int(sys.argv[4])
-    except ValueError:
-        print("Error: Kunci a dan b harus berupa angka!")
-        return
+    # Enkripsi
+    ciphertext = affine_encrypt(plaintext, a, b)
+    if ciphertext:
+        print(f"Hasil Enkripsi: {ciphertext}")
+        
+        # Dekripsi
+        decrypted = affine_decrypt(ciphertext, a, b)
+        if decrypted:
+            print(f"Hasil Dekripsi: {decrypted}")
+            
+            # Verifikasi
+            if plaintext == decrypted:
+                print("✓ Enkripsi dan dekripsi berhasil!")
+            else:
+                print("✗ Ada kesalahan!")
     
-    # Validasi mode
-    if mode not in ['enc', 'dec']:
-        print("Error: Mode harus 'enc' atau 'dec'")
-        return
+    print()
+    print("=== MODE INTERAKTIF ===")
     
-    # Validasi kunci
-    if not is_valid_key(a):
-        print(f"Error: Kunci a={a} tidak valid!")
-        print("Kunci 'a' yang valid: 1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25")
-        return
-    
-    # Proses enkripsi atau dekripsi
-    if mode == 'enc':
-        result = affine_encrypt(text, a, b)
-        if result:
-            print(f"Plaintext: {text}")
-            print(f"Kunci: a={a}, b={b}")
-            print(f"Ciphertext: {result}")
-    
-    elif mode == 'dec':
-        result = affine_decrypt(text, a, b)
-        if result:
-            print(f"Ciphertext: {text}")
-            print(f"Kunci: a={a}, b={b}")
-            print(f"Plaintext: {result}")
+    while True:
+        print("\nPilihan:")
+        print("1. Enkripsi")
+        print("2. Dekripsi")
+        print("3. Keluar")
+        
+        pilihan = input("Masukkan pilihan (1-3): ").strip()
+        
+        if pilihan == "1":
+            text = input("Masukkan teks untuk dienkripsi: ").strip()
+            try:
+                a = int(input("Masukkan kunci a: "))
+                b = int(input("Masukkan kunci b: "))
+                
+                result = affine_encrypt(text, a, b)
+                if result:
+                    print(f"Hasil enkripsi: {result}")
+            except ValueError:
+                print("Error: Masukkan angka yang valid!")
+        
+        elif pilihan == "2":
+            text = input("Masukkan teks untuk didekripsi: ").strip()
+            try:
+                a = int(input("Masukkan kunci a: "))
+                b = int(input("Masukkan kunci b: "))
+                
+                result = affine_decrypt(text, a, b)
+                if result:
+                    print(f"Hasil dekripsi: {result}")
+            except ValueError:
+                print("Error: Masukkan angka yang valid!")
+        
+        elif pilihan == "3":
+            print("Terima kasih!")
+            break
+        
+        else:
+            print("Pilihan tidak valid!")
 
 if __name__ == "__main__":
     main()
