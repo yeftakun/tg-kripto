@@ -1,8 +1,8 @@
+import os
+
 """
-AFFINE CIPHER - Versi Sederhana
+KRIPTOGRAFI KLASIK - AFFINE CIPHER
 ===============================
-Enkripsi: C = (a * P + b) mod 26
-Dekripsi: P = a^(-1) * (C - b) mod 26
 """
 
 def gcd(a, b):
@@ -70,7 +70,8 @@ def affine_decrypt(text, a, b):
     return result
 
 def main():
-    print("=== AFFINE CIPHER SEDERHANA ===")
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("=== AFFINE CIPHER ===")
     print("Kunci 'a' yang valid: 1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25")
     print()
     
@@ -79,28 +80,21 @@ def main():
     a = 5  # Kunci multiplicative
     b = 8  # Kunci additive
     
-    print(f"Plaintext: {plaintext}")
-    print(f"Kunci a: {a}, b: {b}")
-    print()
+    # print(f"Plaintext: {plaintext}")
+    # print(f"Kunci a: {a}, b: {b}")
+    # print()
     
     # Enkripsi
-    ciphertext = affine_encrypt(plaintext, a, b)
-    if ciphertext:
-        print(f"Hasil Enkripsi: {ciphertext}")
+    # ciphertext = affine_encrypt(plaintext, a, b)
+    # if ciphertext:
+    #     print(f"Hasil Enkripsi: {ciphertext}")
         
-        # Dekripsi
-        decrypted = affine_decrypt(ciphertext, a, b)
-        if decrypted:
-            print(f"Hasil Dekripsi: {decrypted}")
-            
-            # Verifikasi
-            if plaintext == decrypted:
-                print("✓ Enkripsi dan dekripsi berhasil!")
-            else:
-                print("✗ Ada kesalahan!")
-    
-    print()
-    print("=== MODE INTERAKTIF ===")
+    #     # Dekripsi
+    #     decrypted = affine_decrypt(ciphertext, a, b)
+    #     if decrypted:
+    #         print(f"Hasil Dekripsi: {decrypted}")
+             
+    # print()
     
     while True:
         print("\nPilihan:")
@@ -108,7 +102,7 @@ def main():
         print("2. Dekripsi")
         print("3. Keluar")
         
-        pilihan = input("Masukkan pilihan (1-3): ").strip()
+        pilihan = input("> ").strip()
         
         if pilihan == "1":
             text = input("Masukkan teks untuk dienkripsi: ").strip()
